@@ -13,3 +13,13 @@ EditorBuildSettings:
     path: Assets/Scenes/ImageTestScene.unity
   - enabled: 1
     path: Assets/Scenes/TextTestScene.unity
+  - enabled: 1
+    path: Assets/Scenes/EventsTestScene.unity
+  - enabled: 1
+    path: Assets/Scenes/SliderTestScene.unity
+  - enabled: 1
+    path: Assets/Scenes/TransitionsTestScene.unity
+  - enabled: 1
+    path: Assets/Scenes/ScrollRectTestScene.unity
+  - enabled: 1
+    path: Assets/Scenes/ScrollbarTestScene.unity
