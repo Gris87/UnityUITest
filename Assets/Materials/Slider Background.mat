@@ -24,9 +24,9 @@ Material:
         first:
           name: _DetailTex
         second:
-          m_Texture: {fileID: 2800000, guid: cd4e3d77c508a0d4f810b2a6d395bc8a, type: 3}
+          m_Texture: {fileID: 2800000, guid: 4a00b644ea833c0478e6daf916dd1d28, type: 3}
           m_Scale: {x: 1, y: 1}
-          m_Offset: {x: -108.689743, y: 0}
+          m_Offset: {x: 0, y: 0}
     m_Floats:
       data:
         first:
