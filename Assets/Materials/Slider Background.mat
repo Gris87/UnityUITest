@@ -31,7 +31,7 @@ Material:
       data:
         first:
           name: _Stencil
-        second: 0
+        second: 2
       data:
         first:
           name: _StencilReadMask
@@ -43,11 +43,11 @@ Material:
       data:
         first:
           name: _StencilComp
-        second: 8
+        second: 100
       data:
         first:
           name: _StencilOp
-        second: 0
+        second: 5
       data:
         first:
           name: _ColorMask
@@ -55,7 +55,7 @@ Material:
       data:
         first:
           name: _Strength
-        second: .178571433
+        second: 1
     m_Colors:
       data:
         first:
