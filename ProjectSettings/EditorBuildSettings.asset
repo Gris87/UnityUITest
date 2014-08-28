@@ -25,3 +25,5 @@ EditorBuildSettings:
     path: Assets/Scenes/WidgetsTestScene.unity
   - enabled: 1
     path: Assets/Scenes/LayoutTestScene.unity
+  - enabled: 1
+    path: Assets/Scenes/DragAndDropTestScene.unity
