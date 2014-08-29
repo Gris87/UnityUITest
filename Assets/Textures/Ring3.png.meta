@@ -1,8 +1,8 @@
 fileFormatVersion: 2
-guid: 234df632f93268241ad4626325ef949e
+guid: 3c82ca9a8c474524084478f8828c8084
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Button_disabled
+    21300000: Ring3
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -22,8 +22,8 @@ TextureImporter:
   grayScaleToAlpha: 0
   generateCubemap: 0
   seamlessCubemap: 0
-  textureFormat: -1
-  maxTextureSize: 1024
+  textureFormat: -3
+  maxTextureSize: 256
   textureSettings:
     filterMode: 2
     aniso: 1
@@ -37,7 +37,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: .5, y: .5}
-  spriteBorder: {x: 10, y: 10, z: 10, w: 10}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
   alphaIsTransparency: 1
   textureType: 8
