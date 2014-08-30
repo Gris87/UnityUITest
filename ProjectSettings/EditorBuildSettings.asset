@@ -27,3 +27,13 @@ EditorBuildSettings:
     path: Assets/Scenes/LayoutTestScene.unity
   - enabled: 1
     path: Assets/Scenes/DragAndDropTestScene.unity
+  - enabled: 1
+    path: Assets/Scenes/ComboBoxTestScene.unity
+  - enabled: 1
+    path: Assets/Scenes/LightingTestScene.unity
+  - enabled: 1
+    path: Assets/Scenes/MenuTestScene.unity
+  - enabled: 1
+    path: Assets/Scenes/SelectorTestScene.unity
+  - enabled: 1
+    path: Assets/Scenes/TabTestScene.unity
