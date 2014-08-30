@@ -5,6 +5,9 @@ using System.Collections;
 
 public class DragAndDropTestScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
+	public ItemType       itemType      = ItemType.NONE;
+	public ItemType       allowItemType = ItemType.NONE;
+
 	private Image         mImage;
 	private Image         mContainerImage;
 	private GameObject    mDraggingIcon;
@@ -27,12 +30,18 @@ public class DragAndDropTestScript : MonoBehaviour, IPointerEnterHandler, IPoint
 	{
 		if (data.pointerDrag != null)
 		{
-			Image sourceImage = data.pointerDrag.GetComponent<Image>();
+			DragAndDropTestScript sourceObject = data.pointerDrag.GetComponent<DragAndDropTestScript>();
 
 			if (
-				sourceImage.sprite.texture.width <= 2
-				&&
-				sourceImage.sprite.texture.height <= 2
+				sourceObject == null
+				||
+				sourceObject.itemType == ItemType.NONE
+				||
+				(
+				 allowItemType != ItemType.NONE
+				 &&
+				 allowItemType != sourceObject.itemType
+				)
 			   )
 			{
 				return;
@@ -42,11 +51,7 @@ public class DragAndDropTestScript : MonoBehaviour, IPointerEnterHandler, IPoint
 		}
 		else
 		{
-			if (
-				mImage.sprite.texture.width <= 2
-				&&
-				mImage.sprite.texture.height <= 2
-			   )
+			if (itemType == ItemType.NONE)
 			{
 				return;
 			}
@@ -62,11 +67,7 @@ public class DragAndDropTestScript : MonoBehaviour, IPointerEnterHandler, IPoint
 
 	public void OnBeginDrag(PointerEventData eventData)
 	{
-		if (
-			mImage.sprite.texture.width <= 2
-			&&
-			mImage.sprite.texture.height <= 2
-		   )
+		if (itemType == ItemType.NONE)
 		{
 			return;
 		}
@@ -121,20 +122,32 @@ public class DragAndDropTestScript : MonoBehaviour, IPointerEnterHandler, IPoint
 	{
 		if (data.pointerDrag != this)
 		{
-			Image sourceImage = data.pointerDrag.GetComponent<Image>();
-
+			DragAndDropTestScript sourceObject = data.pointerDrag.GetComponent<DragAndDropTestScript>();
+			
 			if (
-				sourceImage.sprite.texture.width <= 2
-				&&
-				sourceImage.sprite.texture.height <= 2
+				sourceObject == null
+				||
+				sourceObject.itemType == ItemType.NONE
+				||
+				(
+				 allowItemType != ItemType.NONE
+				 &&
+				 allowItemType != sourceObject.itemType
+				)
 			   )
 			{
 				return;
 			}
 
+			Image sourceImage = data.pointerDrag.GetComponent<Image>();
+
 			Sprite temp        = mImage.sprite;
 			mImage.sprite      = sourceImage.sprite;
 			sourceImage.sprite = temp;
+
+			ItemType tempType     = sourceObject.itemType;
+			sourceObject.itemType = itemType;
+			itemType              = tempType;
 		}
 	}
 
