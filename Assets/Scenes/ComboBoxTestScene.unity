@@ -539,7 +539,7 @@ MonoBehaviour:
   m_Script: {fileID: 1367256648, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Content: {fileID: 0}
+  m_Content: {fileID: 1512690065}
   m_Horizontal: 0
   m_Vertical: 1
   m_MovementType: 1
@@ -914,7 +914,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: .00016784668}
   m_SizeDelta: {x: -30, y: 200}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1949805824
@@ -1023,9 +1023,9 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2129796121}
   m_Interactable: 1
   m_HandleRect: {fileID: 2129796120}
-  m_Direction: 3
-  m_Value: 1
-  m_Size: .200000003
+  m_Direction: 2
+  m_Value: .999998331
+  m_Size: .500000596
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
