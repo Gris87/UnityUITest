@@ -167,7 +167,6 @@ public class DragAndDropTestScript : MonoBehaviour, IPointerEnterHandler, IPoint
 		if (go == null)
 		{
 			return null;
-
 		}
 
 		var comp = go.GetComponent<T>();
