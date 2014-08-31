@@ -5,6 +5,8 @@ using System.Collections;
 
 public class ComboBoxTestScript : MonoBehaviour, IPointerClickHandler
 {
+	public  Button    buttonPrefab   = null;
+
 	private Transform mItems         = null;
 	private Transform mScrollRect    = null;
 	private Transform mScrollContent = null;
@@ -16,6 +18,19 @@ public class ComboBoxTestScript : MonoBehaviour, IPointerClickHandler
 		if (GetComponent<Button>() != null)
 		{
 			return;
+		}
+
+		if (buttonPrefab == null)
+		{
+			Button selectButton = FindInChildren<Button>();
+
+			if (selectButton == null)
+			{
+				Debug.LogError("Select button doesn't found in ComboBox");
+				return;
+			}
+
+			buttonPrefab = selectButton.GetComponent<ComboBoxTestScript>().buttonPrefab;
 		}
 
 		mItems = gameObject.transform.FindChild("Items");
@@ -41,10 +56,16 @@ public class ComboBoxTestScript : MonoBehaviour, IPointerClickHandler
 
 		for (int i=0; i<mItems.childCount; ++i)
 		{
-			if (mItems.GetChild(i).gameObject.activeSelf)
+			if (mSelectedItem >= 0)
 			{
-				mSelectedItem = i;
-				break;
+				mItems.GetChild(i).gameObject.SetActive(false);
+			}
+			else
+			{
+				if (mItems.GetChild(i).gameObject.activeSelf)
+				{
+					mSelectedItem = i;
+				}
 			}
 		}
 	}
@@ -71,12 +92,29 @@ public class ComboBoxTestScript : MonoBehaviour, IPointerClickHandler
 
 	public void moveItemsToScrollRect()
 	{ 
-		while (mItems.childCount>0)
+		int i = 0;
+
+		while (mItems.childCount > 0)
 		{
+			GameObject itemButton = Instantiate(buttonPrefab.gameObject) as GameObject;
+			itemButton.transform.SetParent(mScrollContent);
+
+			RectTransform buttonRect    = itemButton.GetComponent<RectTransform>();
+
+			buttonRect.pivot            = new Vector2(0, 1);
+			buttonRect.anchoredPosition = new Vector2(0, 0);
+			buttonRect.localScale       = new Vector3(1, 1, 1);
+			buttonRect.sizeDelta        = new Vector2(120, 30);
+			buttonRect.localPosition    = new Vector3(0, -30 * i, 0);
+
+			// -----------------------------------------
+
 			Transform child = mItems.GetChild(0);
 
 			child.gameObject.SetActive(true);
-			child.SetParent(mScrollContent);
+			child.SetParent(itemButton.transform);
+
+			++i;
 		}
 	}
 
@@ -84,12 +122,21 @@ public class ComboBoxTestScript : MonoBehaviour, IPointerClickHandler
 	{
 		int i = 0;
 
-		while (mScrollContent.childCount>0)
+		while (mScrollContent.childCount > 0)
 		{
 			Transform child = mScrollContent.GetChild(0);
 			
-			child.gameObject.SetActive(mSelectedItem == i);
-			child.SetParent(mItems);
+			if (child.childCount == 1)
+			{
+				Transform realChild = child.GetChild(0);
+				
+				realChild.gameObject.SetActive(mSelectedItem == i);
+				realChild.SetParent(mItems);
+			}
+
+			child.SetParent(null);
+			
+			DestroyObject(child.gameObject);
 
 			++i;
 		}
@@ -97,7 +144,14 @@ public class ComboBoxTestScript : MonoBehaviour, IPointerClickHandler
 
 	public int GetSelectedItem()
 	{
-		return mSelectedItem;
+		if (isInitiated())
+		{
+			return mSelectedItem;
+		}
+		else
+		{
+			return transform.parent.GetComponent<ComboBoxTestScript>().mSelectedItem;
+		}
 	}
 
 	public T FindInChildren<T>() where T : Component
@@ -118,9 +172,9 @@ public class ComboBoxTestScript : MonoBehaviour, IPointerClickHandler
 	public bool isInitiated()
 	{
 		return (
-				mItems         != null
+				mItems      != null
 				&&
-				mScrollRect    != null
+				mScrollRect != null
 			   );
 	}
 }
