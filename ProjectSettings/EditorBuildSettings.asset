@@ -36,4 +36,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SelectorTestScene.unity
   - enabled: 1
-    path: Assets/Scenes/TabTestScene.unity
+    path: Assets/Scenes/TabWidgetTestScene.unity

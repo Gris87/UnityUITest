@@ -72,7 +72,7 @@ public class DragAndDropTestScript : MonoBehaviour, IPointerEnterHandler, IPoint
 			return;
 		}
 
-		Canvas canvas = FindInParents<Canvas>(gameObject);
+		Canvas canvas = FindInParents<Canvas>();
 
 		if (canvas == null)
 		{
@@ -162,21 +162,16 @@ public class DragAndDropTestScript : MonoBehaviour, IPointerEnterHandler, IPoint
 		}
 	}
 
-	static public T FindInParents<T>(GameObject go) where T : Component
+	public T FindInParents<T>() where T : Component
 	{
-		if (go == null)
-		{
-			return null;
-		}
-
-		var comp = go.GetComponent<T>();
+		var comp = gameObject.GetComponent<T>();
 		
 		if (comp != null)
 		{
 			return comp;
 		}
 		
-		Transform t = go.transform.parent;
+		Transform t = gameObject.transform.parent;
 
 		while (t != null && comp == null)
 		{
