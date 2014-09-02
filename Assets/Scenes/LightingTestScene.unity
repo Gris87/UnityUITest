@@ -167,6 +167,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 403598023}
   - 108: {fileID: 403598022}
+  - 114: {fileID: 403598024}
   m_Layer: 5
   m_Name: Directional light
   m_TagString: Untagged
@@ -215,12 +216,24 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 403598021}
-  m_LocalRotation: {x: 0, y: .0797214881, z: 0, w: .996817231}
-  m_LocalPosition: {x: -2.00271606e-05, y: 0, z: -1.90734863e-06}
+  m_LocalRotation: {x: -.193298623, y: -.15349175, z: .0659075156, w: -.966815472}
+  m_LocalPosition: {x: 0, y: 0, z: -6.10351562e-05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1538637407}
   m_RootOrder: 0
+--- !u!114 &403598024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 403598021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8277bc5ce567fcd41a465ff385ac6be6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 60
 --- !u!1 &483756354
 GameObject:
   m_ObjectHideFlags: 0
@@ -427,6 +440,7 @@ GameObject:
   - 224: {fileID: 1449103274}
   - 222: {fileID: 1449103276}
   - 114: {fileID: 1449103275}
+  - 114: {fileID: 1449103277}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -463,7 +477,7 @@ MonoBehaviour:
   m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Mat: {fileID: 0}
+  m_Mat: {fileID: 2100000, guid: 78c82355a44295347a3a77ac805b90de, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: .39199999}
   m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 1
@@ -479,6 +493,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1449103273}
+--- !u!114 &1449103277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1449103273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1849938685, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1538637406
 GameObject:
   m_ObjectHideFlags: 0
@@ -505,7 +530,7 @@ Transform:
   m_GameObject: {fileID: 1538637406}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -300}
-  m_LocalScale: {x: 3.03108883, y: 3.03108883, z: 3.03108883}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 403598023}
   m_Father: {fileID: 676781580}
@@ -548,7 +573,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967240
+    m_Bits: 4294967272
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
