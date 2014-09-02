@@ -77,11 +77,9 @@ public class ComboBoxTestScript : MonoBehaviour, IPointerClickHandler
 				mItems.GetChild(i).gameObject.SetActive(false);
 			}
 			else
+			if (mItems.GetChild(i).gameObject.activeSelf)
 			{
-				if (mItems.GetChild(i).gameObject.activeSelf)
-				{
-					mSelectedItem = i;
-				}
+				mSelectedItem = i;
 			}
 		}
 	}

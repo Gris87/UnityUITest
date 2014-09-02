@@ -1,8 +1,8 @@
 fileFormatVersion: 2
-guid: 5fa1ab269ed790d45a5e6a725cef3d85
+guid: 2ffcbb7c731824340b023ad6278d5f7f
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Left
+    21300000: Tab_selected
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -23,7 +23,7 @@ TextureImporter:
   generateCubemap: 0
   seamlessCubemap: 0
   textureFormat: -3
-  maxTextureSize: 128
+  maxTextureSize: 256
   textureSettings:
     filterMode: 2
     aniso: 1
@@ -37,7 +37,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: .5, y: .5}
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteBorder: {x: 6, y: 0, z: 6, w: 6}
   spritePixelsToUnits: 100
   alphaIsTransparency: 1
   textureType: 8
