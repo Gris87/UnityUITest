@@ -76,7 +76,7 @@ public class TabWidgetTestScript : MonoBehaviour
 			tabRect.sizeDelta        = new Vector2(tabWidth, tabHeight);
 		}
 
-		Vector3 prevTabPos = new Vector3 (tabsRect.localPosition.x, 0, 0);
+		Vector3 prevTabPos = new Vector3(tabsRect.localPosition.x, 0, 0);
 
 		tabsRect.pivot            = new Vector2(0, 1);
 		tabsRect.anchoredPosition = new Vector2(0, 0);
