@@ -15,7 +15,7 @@ public class TabClickScript : MonoBehaviour
 				if (t.GetChild(i) == transform)
 				{
 					TabWidgetTestScript script = FindInParents<TabWidgetTestScript>();
-					script.SetCurrentIndex(i);
+					script.currentIndex = i;
 
 					break;
 				}

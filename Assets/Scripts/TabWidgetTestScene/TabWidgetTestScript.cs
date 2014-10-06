@@ -10,6 +10,20 @@ public class TabWidgetTestScript : MonoBehaviour
 	private Transform mPages        = null;
 	private int       mCurrentIndex = -1;
 
+	public int currentIndex
+	{
+		get
+		{
+			return mCurrentIndex;
+		}
+
+		set
+		{
+			mCurrentIndex = value;
+			UpdateSelectedIndex();
+		}
+	}
+
 	// Use this for initialization
 	void Start()
 	{
@@ -109,16 +123,5 @@ public class TabWidgetTestScript : MonoBehaviour
 		{
 			mCurrentIndex = -1;
 		}
-	}
-
-	public void SetCurrentIndex(int index)
-	{
-		mCurrentIndex = index;
-		UpdateSelectedIndex();
-	}
-	
-	public int GetCurrentIndex()
-	{
-		return mCurrentIndex;
 	}
 }
