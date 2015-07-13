@@ -1,273 +1,273 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System.Collections;
 
 public class ComboBoxTestScript : MonoBehaviour, IPointerClickHandler
 {
-	public  Button    buttonPrefab   = null;
-	public  int       buttonOffsetX  = 2;
-	public  int       buttonOffsetY  = 2;
-	public  int       buttonWidth    = 120;
-	public  int       buttonHeight   = 30;
-	public  Color     selectedColor  = new Color(0.25f, 0.25f, 1f);
+    public  Button    buttonPrefab   = null;
+    public  int       buttonOffsetX  = 2;
+    public  int       buttonOffsetY  = 2;
+    public  int       buttonWidth    = 120;
+    public  int       buttonHeight   = 30;
+    public  Color     selectedColor  = new Color(0.25f, 0.25f, 1f);
 
-	private Transform mCanvas        = null;
-	private Transform mItems         = null;
-	private Transform mScrollRect    = null;
-	private Transform mScrollContent = null;
-	private int       mSelectedItem  = -1;
+    private Transform mCanvas        = null;
+    private Transform mItems         = null;
+    private Transform mScrollRect    = null;
+    private Transform mScrollContent = null;
+    private int       mSelectedItem  = -1;
 
-	// Use this for initialization
-	void Start()
-	{
-		if (GetComponent<Button>() != null)
-		{
-			return;
-		}
+    // Use this for initialization
+    void Start()
+    {
+        if (GetComponent<Button>() != null)
+        {
+            return;
+        }
 
-		if (buttonPrefab == null)
-		{
-			Button selectButton = FindInChildren<Button>();
+        if (buttonPrefab == null)
+        {
+            Button selectButton = FindInChildren<Button>();
 
-			if (selectButton == null)
-			{
-				Debug.LogError("Select button doesn't found in ComboBox");
-				return;
-			}
+            if (selectButton == null)
+            {
+                Debug.LogError("Select button doesn't found in ComboBox");
+                return;
+            }
 
-			buttonPrefab = selectButton.GetComponent<ComboBoxTestScript>().buttonPrefab;
-		}
+            buttonPrefab = selectButton.GetComponent<ComboBoxTestScript>().buttonPrefab;
+        }
 
-		Canvas canvas = FindInParents<Canvas>();
+        Canvas canvas = FindInParents<Canvas>();
 
-		if (canvas == null)
-		{
-			Debug.LogError("ComboBox doesn't belongs to Canvas");
-			return;
-		}
+        if (canvas == null)
+        {
+            Debug.LogError("ComboBox doesn't belongs to Canvas");
+            return;
+        }
 
-		mCanvas = canvas.transform;
+        mCanvas = canvas.transform;
 
-		mItems = gameObject.transform.FindChild("Items");
+        mItems = gameObject.transform.FindChild("Items");
 
-		if (mItems == null)
-		{
-			Debug.LogError("Items doesn't found in ComboBox");
-			return;
-		}
+        if (mItems == null)
+        {
+            Debug.LogError("Items doesn't found in ComboBox");
+            return;
+        }
 
-		ScrollRect scrollRect = FindInChildren<ScrollRect>();
-		
-		if (scrollRect == null)
-		{
-			Debug.LogError("ScrollRect doesn't found in ComboBox");
-			return;
-		}
+        ScrollRect scrollRect = FindInChildren<ScrollRect>();
 
-		mScrollRect = scrollRect.transform;		
-		mScrollRect.gameObject.SetActive(false);
+        if (scrollRect == null)
+        {
+            Debug.LogError("ScrollRect doesn't found in ComboBox");
+            return;
+        }
 
-		mScrollContent = scrollRect.content.transform;
+        mScrollRect = scrollRect.transform;
+        mScrollRect.gameObject.SetActive(false);
 
-		for (int i=0; i<mItems.childCount; ++i)
-		{
-			if (mSelectedItem >= 0)
-			{
-				mItems.GetChild(i).gameObject.SetActive(false);
-			}
-			else
-			if (mItems.GetChild(i).gameObject.activeSelf)
-			{
-				mSelectedItem = i;
-			}
-		}
-	}
+        mScrollContent = scrollRect.content.transform;
 
-	public void OnPointerClick(PointerEventData data)
-	{
-		if (!isInitiated())
-		{
-			transform.parent.GetComponent<ComboBoxTestScript>().OnPointerClick(data);
-			return;
-		}
+        for (int i=0; i<mItems.childCount; ++i)
+        {
+            if (mSelectedItem >= 0)
+            {
+                mItems.GetChild(i).gameObject.SetActive(false);
+            }
+            else
+            if (mItems.GetChild(i).gameObject.activeSelf)
+            {
+                mSelectedItem = i;
+            }
+        }
+    }
 
-		if (mScrollRect.gameObject.activeSelf)
-		{
-			moveItemsToComboBox();
-		}
-		else
-		{
-			moveItemsToScrollRect();
-		}
-	}
+    public void OnPointerClick(PointerEventData data)
+    {
+        if (!isInitiated())
+        {
+            transform.parent.GetComponent<ComboBoxTestScript>().OnPointerClick(data);
+            return;
+        }
 
-	public void moveItemsToScrollRect()
-	{ 
-		GameObject selectedItem = null;
+        if (mScrollRect.gameObject.activeSelf)
+        {
+            moveItemsToComboBox();
+        }
+        else
+        {
+            moveItemsToScrollRect();
+        }
+    }
 
-		int i = 0;
+    public void moveItemsToScrollRect()
+    {
+        GameObject selectedItem = null;
 
-		RectTransform scrollRect = mScrollContent.GetComponent<RectTransform>();
-		scrollRect.sizeDelta = new Vector2(scrollRect.sizeDelta.x, buttonOffsetY + buttonHeight * (mItems.childCount + 1));
+        int i = 0;
 
-		while (mItems.childCount > 0)
-		{
-			GameObject itemButton = Instantiate(buttonPrefab.gameObject) as GameObject;
+        RectTransform scrollRect = mScrollContent.GetComponent<RectTransform>();
+        scrollRect.sizeDelta = new Vector2(scrollRect.sizeDelta.x, buttonOffsetY + buttonHeight * (mItems.childCount + 1));
 
-			itemButton.transform.SetParent(mScrollContent);
-			ItemClickScript itemClickScript = itemButton.AddComponent<ItemClickScript>();
-			itemClickScript.mMainScript     = this;
-			Button buttonScript             = itemButton.GetComponent<Button>();			
-			buttonScript.transition         = Selectable.Transition.ColorTint;
+        while (mItems.childCount > 0)
+        {
+            GameObject itemButton = Instantiate(buttonPrefab.gameObject) as GameObject;
 
-			RectTransform buttonRect    = itemButton.GetComponent<RectTransform>();
+            itemButton.transform.SetParent(mScrollContent);
+            ItemClickScript itemClickScript = itemButton.AddComponent<ItemClickScript>();
+            itemClickScript.mMainScript     = this;
+            Button buttonScript             = itemButton.GetComponent<Button>();
+            buttonScript.transition         = Selectable.Transition.ColorTint;
 
-			buttonRect.pivot            = new Vector2(0, 1);
-			buttonRect.anchoredPosition = new Vector2(0, 0);
-			buttonRect.localPosition    = new Vector3(buttonOffsetX, -buttonOffsetY - buttonHeight * i, 0);
-			buttonRect.sizeDelta        = new Vector2(buttonWidth, buttonHeight);
-			buttonRect.localScale       = new Vector3(1, 1, 1);
+            RectTransform buttonRect    = itemButton.GetComponent<RectTransform>();
 
-			// -----------------------------------------
+            buttonRect.pivot            = new Vector2(0, 1);
+            buttonRect.anchoredPosition = new Vector2(0, 0);
+            buttonRect.localPosition    = new Vector3(buttonOffsetX, -buttonOffsetY - buttonHeight * i, 0);
+            buttonRect.sizeDelta        = new Vector2(buttonWidth, buttonHeight);
+            buttonRect.localScale       = new Vector3(1, 1, 1);
 
-			Transform child = mItems.GetChild(0);
+            // -----------------------------------------
 
-			child.gameObject.SetActive(true);
-			child.SetParent(itemButton.transform);
+            Transform child = mItems.GetChild(0);
 
-			RectTransform childRect = child.GetComponent<RectTransform>();
+            child.gameObject.SetActive(true);
+            child.SetParent(itemButton.transform);
 
-			childRect.anchoredPosition = new Vector2(0, 0);
-			childRect.sizeDelta        = new Vector2(-10, -10);
+            RectTransform childRect = child.GetComponent<RectTransform>();
 
-			if (i == mSelectedItem)
-			{
-				selectedItem = child.gameObject;
-				ColorBlock colors = buttonScript.colors;
-				colors.normalColor = selectedColor;
-				buttonScript.colors = colors;
-			}
+            childRect.anchoredPosition = new Vector2(0, 0);
+            childRect.sizeDelta        = new Vector2(-10, -10);
 
-			++i;
-		}
+            if (i == mSelectedItem)
+            {
+                selectedItem = child.gameObject;
+                ColorBlock colors = buttonScript.colors;
+                colors.normalColor = selectedColor;
+                buttonScript.colors = colors;
+            }
 
-		if (selectedItem != null)
-		{
-			selectedItem = Instantiate(selectedItem) as GameObject;
-			selectedItem.transform.SetParent(mItems);
+            ++i;
+        }
 
-			RectTransform selectedItemRect = selectedItem.GetComponent<RectTransform>();
-			
-			selectedItemRect.anchoredPosition = new Vector2(0, 0);
-			selectedItemRect.localPosition    = new Vector3(0, 0, 0);
-			selectedItemRect.sizeDelta        = new Vector2(-10, -10);
-			selectedItemRect.localScale       = new Vector3(1, 1, 1);
-		}
+        if (selectedItem != null)
+        {
+            selectedItem = Instantiate(selectedItem) as GameObject;
+            selectedItem.transform.SetParent(mItems);
 
-		mScrollRect.SetParent(mCanvas);
-		mScrollRect.SetAsLastSibling();
-		mScrollRect.gameObject.SetActive(true);
-	}
+            RectTransform selectedItemRect = selectedItem.GetComponent<RectTransform>();
 
-	public void moveItemsToComboBox()
-	{
-		int i = 0;
+            selectedItemRect.anchoredPosition = new Vector2(0, 0);
+            selectedItemRect.localPosition    = new Vector3(0, 0, 0);
+            selectedItemRect.sizeDelta        = new Vector2(-10, -10);
+            selectedItemRect.localScale       = new Vector3(1, 1, 1);
+        }
 
-		if (mItems.childCount == 1)
-		{
-			DestroyObject(mItems.GetChild(0).gameObject);
-		}
+        mScrollRect.SetParent(mCanvas);
+        mScrollRect.SetAsLastSibling();
+        mScrollRect.gameObject.SetActive(true);
+    }
 
-		while (mScrollContent.childCount > 0)
-		{
-			Transform child = mScrollContent.GetChild(0);
-			
-			if (child.childCount == 1)
-			{
-				Transform realChild = child.GetChild(0);
-				
-				realChild.gameObject.SetActive(mSelectedItem == i);
-				realChild.SetParent(mItems);
+    public void moveItemsToComboBox()
+    {
+        int i = 0;
 
-				RectTransform childRect = realChild.GetComponent<RectTransform>();
-				
-				childRect.anchoredPosition = new Vector2(0, 0);
-				childRect.sizeDelta        = new Vector2(-10, -10);
-			}
+        if (mItems.childCount == 1)
+        {
+            DestroyObject(mItems.GetChild(0).gameObject);
+        }
 
-			child.SetParent(null);
-			
-			DestroyObject(child.gameObject);
+        while (mScrollContent.childCount > 0)
+        {
+            Transform child = mScrollContent.GetChild(0);
 
-			++i;
-		}
+            if (child.childCount == 1)
+            {
+                Transform realChild = child.GetChild(0);
 
-		mScrollRect.gameObject.SetActive(false);
-		mScrollRect.SetParent(transform);
-		mScrollRect.SetAsLastSibling();
-	}
+                realChild.gameObject.SetActive(mSelectedItem == i);
+                realChild.SetParent(mItems);
 
-	public void SetSelectedItem(int value)
-	{
-		mSelectedItem = value;
-	}
+                RectTransform childRect = realChild.GetComponent<RectTransform>();
 
-	public int GetSelectedItem()
-	{
-		if (isInitiated())
-		{
-			return mSelectedItem;
-		}
-		else
-		{
-			return transform.parent.GetComponent<ComboBoxTestScript>().mSelectedItem;
-		}
-	}
+                childRect.anchoredPosition = new Vector2(0, 0);
+                childRect.sizeDelta        = new Vector2(-10, -10);
+            }
 
-	public T FindInParents<T>() where T : Component
-	{
-		var comp = gameObject.GetComponent<T>();
-		
-		if (comp != null)
-		{
-			return comp;
-		}
-		
-		Transform t = gameObject.transform.parent;
-		
-		while (t != null && comp == null)
-		{
-			comp = t.gameObject.GetComponent<T>();
-			t = t.parent;
-		}
-		
-		return comp;
-	}
+            child.SetParent(null);
 
-	public T FindInChildren<T>() where T : Component
-	{
-		for (int i=0; i<transform.childCount; ++i)
-		{
-			var comp = transform.GetChild(i).GetComponent<T>();
-			
-			if (comp != null)
-			{
-				return comp;
-			}
-		}
-		
-		return null;
-	}
+            DestroyObject(child.gameObject);
 
-	public bool isInitiated()
-	{
-		return (
-			    mCanvas     != null
-			    &&
-				mItems      != null
-				&&
-				mScrollRect != null
-			   );
-	}
+            ++i;
+        }
+
+        mScrollRect.gameObject.SetActive(false);
+        mScrollRect.SetParent(transform);
+        mScrollRect.SetAsLastSibling();
+    }
+
+    public void SetSelectedItem(int value)
+    {
+        mSelectedItem = value;
+    }
+
+    public int GetSelectedItem()
+    {
+        if (isInitiated())
+        {
+            return mSelectedItem;
+        }
+        else
+        {
+            return transform.parent.GetComponent<ComboBoxTestScript>().mSelectedItem;
+        }
+    }
+
+    public T FindInParents<T>() where T : Component
+    {
+        var comp = gameObject.GetComponent<T>();
+
+        if (comp != null)
+        {
+            return comp;
+        }
+
+        Transform t = gameObject.transform.parent;
+
+        while (t != null && comp == null)
+        {
+            comp = t.gameObject.GetComponent<T>();
+            t = t.parent;
+        }
+
+        return comp;
+    }
+
+    public T FindInChildren<T>() where T : Component
+    {
+        for (int i=0; i<transform.childCount; ++i)
+        {
+            var comp = transform.GetChild(i).GetComponent<T>();
+
+            if (comp != null)
+            {
+                return comp;
+            }
+        }
+
+        return null;
+    }
+
+    public bool isInitiated()
+    {
+        return (
+                mCanvas     != null
+                &&
+                mItems      != null
+                &&
+                mScrollRect != null
+               );
+    }
 }
